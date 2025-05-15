@@ -17,15 +17,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: cd admin
       - name: Install dependencies
-        run: npm ci
+        run: |
+          cd admin
+          npm ci
 
       - name: Build project
-        run: npm run build --verbose
+        run: |
+          cd admin
+          npm run build --verbose
 
       - name: Create ZIP of build
         run: |
+          cd admin
           mkdir upload
           cp -r dist/* upload/
           cd upload
@@ -34,7 +38,7 @@ jobs:
       - name: Create draft release & upload
         uses: softprops/action-gh-release@v2
         with:
-          files: build-artifact.zip
+          files: admin/build-artifact.zip
           draft: true         # Release ist Entwurf
           prerelease: true    # Markiert als Pre-Release
         env:
