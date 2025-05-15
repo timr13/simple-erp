@@ -1,0 +1,41 @@
+name: Build & Upload for Test
+
+on:
+  push:
+    tags:
+      - 'dev-*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: cd admin
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Create ZIP of build
+        run: |
+          mkdir upload
+          cp -r dist/* upload/
+          cd upload
+          zip -r ../build-artifact.zip .
+
+      - name: Create draft release & upload
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build-artifact.zip
+          draft: true         # Release ist Entwurf
+          prerelease: true    # Markiert als Pre-Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
