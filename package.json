@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "^5.8.3"
+  }
+}
