@@ -33,7 +33,7 @@ jobs:
           mkdir upload
           cp -r dist/* upload/
           cd upload
-          zip -r ../admin-panel.zip .
+          zip -r ../admin.zip .
 
       - name: Create draft release & upload
         uses: softprops/action-gh-release@v2
