@@ -33,12 +33,12 @@ jobs:
           mkdir upload
           cp -r dist/* upload/
           cd upload
-          zip -r ../build-artifact.zip .
+          zip -r ../admin-panel.zip .
 
       - name: Create draft release & upload
         uses: softprops/action-gh-release@v2
         with:
-          files: admin/build-artifact.zip
+          files: admin/admin.zip
           draft: true         # Release ist Entwurf
           prerelease: true    # Markiert als Pre-Release
         env:
